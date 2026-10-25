@@ -1,0 +1,75 @@
+/* 页面内替换词与高亮词的样式。颜色由内容脚本写入 --nl-color，样式由 html[data-nl-style] 控制。 */
+.nl-word,
+.nl-hl {
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.15s;
+}
+
+.nl-word {
+  color: var(--nl-color, #7c3aed) !important;
+  font-weight: 600;
+  margin: 0 0.15em;
+}
+
+.nl-word.nl-show-orig {
+  font-weight: inherit;
+  opacity: 0.8;
+}
+
+html[data-nl-style='underline'] .nl-word,
+html[data-nl-style='underline'] .nl-hl {
+  text-decoration: underline 2px color-mix(in srgb, var(--nl-color, #7c3aed) 55%, transparent);
+  text-underline-offset: 3px;
+}
+
+html[data-nl-style='background'] .nl-word,
+html[data-nl-style='background'] .nl-hl {
+  background-color: color-mix(in srgb, var(--nl-color, #7c3aed) 14%, transparent);
+  padding: 0 2px;
+}
+
+html[data-nl-style='bold'] .nl-hl {
+  font-weight: 700;
+}
+
+/* 生词本中正在学的词：虚线下划线，提醒「这是你的生词」 */
+.nl-word.nl-learning {
+  text-decoration-style: dashed !important;
+}
+
+.nl-hl {
+  text-decoration: underline 2px dashed color-mix(in srgb, var(--nl-color, #7c3aed) 70%, transparent);
+  text-underline-offset: 3px;
+}
+
+/* 查词收藏的单词：用查词颜色提示（放在通用样式之后以覆盖颜色） */
+.nl-word.nl-looked {
+  color: var(--nl-lookup-color, #f59e0b) !important;
+}
+
+.nl-word.nl-looked,
+.nl-hl.nl-looked {
+  text-decoration: underline 2px var(--nl-lookup-color, #f59e0b) !important;
+  text-underline-offset: 3px;
+  background-color: color-mix(in srgb, var(--nl-lookup-color, #f59e0b) 14%, transparent);
+}
+
+/* 双击加入生词本后的闪烁反馈 */
+.nl-word.nl-flash {
+  animation: nl-flash 0.8s ease-out;
+}
+
+@keyframes nl-flash {
+  0% {
+    background-color: color-mix(in srgb, var(--nl-color, #7c3aed) 45%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.nl-word:hover,
+.nl-hl:hover {
+  background-color: color-mix(in srgb, var(--nl-color, #7c3aed) 20%, transparent);
+}

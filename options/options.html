@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NeonLingo 设置</title>
+    <link rel="stylesheet" href="../common/ui.css" />
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header class="row">
+        <img src="../icons/icon48.png" width="32" height="32" alt="" />
+        <div>
+          <h1>NeonLingo 个人版 · 设置</h1>
+          <p class="muted small">改动会自动保存 <span id="saved" class="saved-hint">✓ 已保存</span></p>
+        </div>
+      </header>
+
+      <section class="panel">
+        <h2>模型通道</h2>
+        <div class="seg" id="provider">
+          <button data-v="claude">Claude（官方 SDK）</button>
+          <button data-v="openai">OpenAI 兼容接口</button>
+        </div>
+
+        <div id="claudeBox">
+          <label class="field"><span>Claude API Key</span><input type="password" id="claudeKey" placeholder="sk-ant-..." autocomplete="off" /></label>
+          <label class="field"><span>模型</span><select id="claudeModel"></select></label>
+          <label class="field"
+            ><span>自定义 Base URL（可选，用于 Claude 中转；留空使用官方地址）</span
+            ><input type="url" id="claudeBaseURL" placeholder="https://api.anthropic.com"
+          /></label>
+        </div>
+
+        <div id="openaiBox">
+          <label class="field"><span>服务商预设</span><select id="openaiPreset"></select></label>
+          <label class="field"><span>Base URL</span><input type="url" id="openaiBaseURL" placeholder="https://api.deepseek.com" /></label>
+          <label class="field"><span>API Key（本地 Ollama 可留空）</span><input type="password" id="openaiKey" autocomplete="off" /></label>
+          <label class="field"><span>模型名</span><input type="text" id="openaiModel" placeholder="deepseek-chat" /></label>
+          <p class="muted small">本地 Ollama 需要允许扩展访问：启动前设置环境变量 <code>OLLAMA_ORIGINS=chrome-extension://*</code>。</p>
+        </div>
+
+        <div class="row">
+          <button id="test" class="primary">测试连接</button>
+          <span id="testResult" class="small"></span>
+        </div>
+        <label class="switch"
+          ><span>通过 Chrome 账号同步 API Key <span class="muted small">（关闭时 Key 只保存在这台电脑）</span></span
+          ><input type="checkbox" id="syncApiKey"
+        /></label>
+      </section>
+
+      <section class="panel">
+        <h2>学习偏好</h2>
+        <div class="grid2">
+          <label class="field"><span>当前外语水平</span><select id="level"></select></label>
+          <label class="field"><span>词汇量</span><input type="number" id="vocabSize" min="300" max="30000" step="100" /></label>
+          <p class="muted small span2" id="levelDesc"></p>
+          <label class="field"
+            ><span>想学的单词难度</span
+            ><select id="wordDifficulty">
+              <option value="review">轻松巩固：巩固已经会的词</option>
+              <option value="next">稍有挑战：比现在会的，多一点点（推荐）</option>
+              <option value="challenge">更有挑战：接触更有挑战的新词</option>
+            </select></label
+          >
+          <label class="field"
+            ><span>替换密度（占段落词数的比例）</span
+            ><select id="density">
+              <option value="low">少 2%</option>
+              <option value="medium">中 5%</option>
+              <option value="high">多 8%</option>
+            </select></label
+          >
+          <label class="field"
+            ><span>替换词显示</span
+            ><select id="displayMode">
+              <option value="en">只显示英文</option>
+              <option value="en_zh">英文(中文)</option>
+            </select></label
+          >
+          <label class="field"><span>单页最多处理字数（控制费用）</span><input type="number" id="maxCharsPerPage" min="1000" step="1000" /></label>
+          <label class="field"><span>发音语速</span><input type="number" id="speechRate" min="0.5" max="1.5" step="0.1" /></label>
+        </div>
+        <p class="muted small">每掌握一个词，选词时的有效词汇量自动 +1；在悬停卡片上连续点 3 次「认识」，或复习稳定度超过 60 天，就算掌握。</p>
+      </section>
+
+      <section class="panel">
+        <h2>外观</h2>
+        <div class="grid2">
+          <label class="field"><span>高亮颜色</span><input type="color" id="highlightColor" /></label>
+          <label class="field"
+            ><span>高亮样式</span
+            ><select id="highlightStyle">
+              <option value="underline">下划线</option>
+              <option value="background">底色</option>
+              <option value="bold">加粗</option>
+            </select></label
+          >
+          <label class="field"
+            ><span>释义卡片位置</span
+            ><select id="cardPosition">
+              <option value="below">单词下方</option>
+              <option value="right">单词右侧</option>
+              <option value="corner">固定在右下角</option>
+            </select></label
+          >
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>划词翻译与生词</h2>
+        <label class="field"
+          ><span>划词后</span
+          ><select id="selectionMode">
+            <option value="icon">显示「译」小图标，点击翻译</option>
+            <option value="auto">自动翻译</option>
+            <option value="off">关闭（仍可用右键菜单翻译）</option>
+          </select></label
+        >
+        <label class="switch"
+          ><span
+            >查词后自动收藏<br /><span class="muted small"
+              >你查过的单词会加入单词本并用颜色提示。关闭此项，不影响上方自动识别的词加入单词本。</span
+            ></span
+          ><input type="checkbox" id="autoSaveLookup"
+        /></label>
+        <label class="switch" id="lookupColorRow"
+          ><span>查词收藏的提示颜色</span><input type="color" id="lookupColor"
+        /></label>
+        <label class="switch"><span>在所有网页高亮生词本里的词</span><input type="checkbox" id="globalHighlight" /></label>
+      </section>
+
+      <section class="panel">
+        <h2>不启用的网站</h2>
+        <label class="field"
+          ><span>每行一个域名，子域名也会生效（例如 example.com）</span><textarea id="blockedSites" rows="4"></textarea
+        ></label>
+      </section>
+
+      <section class="panel">
+        <h2>同步与备份</h2>
+        <p id="syncInfo" class="small muted"></p>
+        <div class="row wrap">
+          <button id="syncNow">立即同步</button>
+          <button id="exportJson">导出 JSON 备份</button>
+          <label class="btn">导入 JSON<input type="file" id="importJson" accept=".json,application/json" hidden /></label>
+        </div>
+        <p class="muted small">
+          另一台电脑：把整个插件文件夹拷过去 → 打开 <code>chrome://extensions</code> → 开启开发者模式 → 加载已解压的扩展程序。登录同一个 Chrome
+          账号并开启「扩展程序」同步后，设置和生词本会自动同步过去。
+        </p>
+      </section>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

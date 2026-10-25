@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "NeonLingo 个人版",
+  "version": "1.0.0",
+  "description": "沉浸式英语学习：按你的水平把中文网页中的部分词语替换为英文，划词翻译，生词本与间隔重复复习。",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuk/i/9/C3wjM/mteaph4oQV9erHE/HbpH5jeUximxTfvx5MkTQSY3x/rWZo6hRNZwqU7m4xxC25WD/vcZVXdKYyZ7k7ASJYKqYJE/T9vDsFdbq1sKHpLkCPEzno09D0j2d8fMGG4/Lq3zLxE3x6SeEVShdlbArCJe3764B88hYIMzEj777fbYQ/KydifT0kuGs7XAxYfELegGvPiil5bmAAG93lrktL+YGqBpdwl+cEW0V1xXkYRt3/jsw3Ui0OLe4BhgzO/K4WmwD9rIURXHjA7fPb35Vvf+YqBJVE4+u+BKF4gRUhym2hKTX8bIEozuWmiETXvTTrFDUYILLUN3wIDAQAB",
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png" }
+  },
+  "options_page": "options/options.html",
+  "background": { "service_worker": "dist/background.js", "type": "module" },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["storage", "unlimitedStorage", "contextMenus", "alarms"],
+  "host_permissions": ["<all_urls>"],
+  "minimum_chrome_version": "120"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "neonlingo-personal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "个人版沉浸式英语学习浏览器插件（Claude / OpenAI 兼容接口）",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/background.js --bundle --format=esm --target=chrome120 --minify --sourcemap --outfile=dist/background.js",
+    "watch": "npm run build -- --watch"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

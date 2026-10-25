@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NeonLingo 生词本</title>
+    <link rel="stylesheet" href="../common/ui.css" />
+    <link rel="stylesheet" href="vocab.css" />
+  </head>
+  <body>
+    <main>
+      <header class="row">
+        <img src="../icons/icon48.png" width="32" height="32" alt="" />
+        <h1>生词本</h1>
+        <nav class="tabs">
+          <a href="#list" data-tab="list">单词列表</a>
+          <a href="#review" data-tab="review">复习 <span id="dueCount" class="tag">0</span></a>
+        </nav>
+      </header>
+
+      <section id="tab-list">
+        <div class="summary" id="summary"></div>
+        <div class="toolbar">
+          <input type="search" id="q" placeholder="搜索单词、释义或原文" />
+          <select id="filter">
+            <option value="all">全部</option>
+            <option value="learning">学习中</option>
+            <option value="mastered">已掌握</option>
+            <option value="due">待复习</option>
+          </select>
+          <select id="sort">
+            <option value="recent">最近添加</option>
+            <option value="seen">见过最多</option>
+            <option value="due">最先到期</option>
+            <option value="alpha">字母顺序</option>
+          </select>
+          <button id="exportCsv">导出 CSV（Anki）</button>
+        </div>
+        <div id="list" class="list"></div>
+        <p id="empty" class="muted empty" hidden>还没有生词。浏览中文网页时，在悬停卡片上点「不认识」或「☆」，或划词翻译，单词就会出现在这里。</p>
+      </section>
+
+      <section id="tab-review" hidden>
+        <div id="reviewBox" class="panel review"></div>
+        <p class="muted small center">快捷键：空格 显示答案 · 1 重来 · 2 困难 · 3 良好 · 4 简单 · P 发音</p>
+      </section>
+    </main>
+    <script type="module" src="vocab.js"></script>
+  </body>
+</html>
